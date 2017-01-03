@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# git auto push
+git.push.sh
+
 # Runtime data
 pids
 *.pid
@@ -35,3 +38,4 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+

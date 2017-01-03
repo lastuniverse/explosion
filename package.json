@@ -1,0 +1,22 @@
+{
+  "name": "explosion",
+  "version": "1.0.0",
+  "description": "service message collector",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lastuniverse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lastuniverse/likeFB/issues"
+  },
+  "homepage": "https://github.com/lastuniverse/likeFB#readme",
+  "dependencies": {
+    "ws": "^1.1.1"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  }
+}
