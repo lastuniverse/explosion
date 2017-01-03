@@ -1,27 +1,30 @@
-# likeFB
+# explosion
 
-Это JS библиотека обеспечивающая обмен служебными сообщениями между всеми клиентскими приложениями.
+This JS library provides exchange of signaling messages between all client applications.
 
-## К реализации предложены
+## By implementing proposed
 
-### Сервер на основе WebSocket включающий следующие возможности:
-- роутеры (по аналогии с express)
-- списки рассылки служебных сообщений
-- контроллеры доступа к спискам рассылки служебных сообщений
-- создание фильтров рассылки служебных сообщений
-- создание схем проверки сообщений на валидность
-- отложенные очереди рассылок служебных сообщений
-- firebase подобный интерфейс к внесению информации в БД 
+### WebSocket server on the basis of which includes the following features:
 
-### Браузерный и серверный клиенты WebSocket включающие следующие возможности:
-- подписка на рассылки служебных сообщений
-- создание собственных рассылок служебных сообщений с возможностью устанавливать на них права, фильтры и клиентские обработчики(роутеры)
-- отложенные очереди отправки сообщений (офлайн режим)
+- routers (by analogy with the express)
+- lists service messaging
+- Controllers access to service messages, mailing lists
+- service messaging filter creation
+- creation of posts on the validity of the test circuit
+- deferred queue service messages, mailings
 
-## Скачать этот репозиторий
+
+### Browser WebSocket server and clients include the following features:
+- subscription service messaging
+- create your own mailing service messages with the ability to set them right, filters and client handlers (routers)
+- deferred messaging queue (offline mode)
+
+## Download this repository
 ```
-git clone git@github.com:lastuniverse/likeFB.git
+https://github.com/lastuniverse/explosion.git
 ```
-## Участие в разработке
 
-Добавляйтесь в команду разработчиков на https://trello.com/invite/likefb/a271fb78a8e879242aa1865207a1ac9a
+## Participation in development
+```
+https://github.com/lastuniverse/explosion/issues
+```
