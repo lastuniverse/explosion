@@ -21,10 +21,21 @@ This JS library provides exchange of signaling messages between all client appli
 
 ## Download this repository
 ```
-https://github.com/lastuniverse/explosion.git
+git clone https://github.com/lastuniverse/explosion.git
+```
+## Install via npm
+```
+npm install explosion
 ```
 
 ## Participation in development
 ```
 https://github.com/lastuniverse/explosion/issues
 ```
+## License
+
+MIT
+
+## Important
+
+library development is not yet complete
