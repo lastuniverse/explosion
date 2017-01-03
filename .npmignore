@@ -23,6 +23,7 @@ npm-debug.log*
 
 # git auto push
 git.push.sh
+npm.push.sh
 
 # Runtime data
 pids
