@@ -1,6 +1,6 @@
 {
   "name": "explosion",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "WebSocket server for processing service messages mailings",
   "main": "index.js",
   "directories": {
