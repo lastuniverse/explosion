@@ -23,10 +23,16 @@ This JS library provides exchange of signaling messages between all client appli
 ```
 git clone https://github.com/lastuniverse/explosion.git
 ```
-## Install via npm
+## Install  via npm
 ```
 npm install explosion
 ```
+
+for latest unstable version use:
+```
+npm install https://github.com/lastuniverse/explosion/tarball/master
+```
+
 
 ## Participation in development
 ```
@@ -39,3 +45,5 @@ MIT
 ## Important
 
 library development is not yet complete
+
+[![NPM](https://nodei.co/npm/explosion.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/explosion/)

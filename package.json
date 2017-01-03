@@ -1,22 +1,30 @@
 {
   "name": "explosion",
-  "version": "1.0.0",
-  "description": "service message collector",
+  "version": "0.0.2",
+  "description": "WebSocket server for processing service messages mailings",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "lastuniverse",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lastuniverse/likeFB/issues"
-  },
-  "homepage": "https://github.com/lastuniverse/likeFB#readme",
-  "dependencies": {
-    "ws": "^1.1.1"
-  },
   "directories": {
     "doc": "docs",
-    "test": "tests"
-  }
+    "example": "examples"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "node ./examples/test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lastuniverse/explosion.git"
+  },
+  "keywords": [
+    "websocket",
+    "message",
+    "server"
+  ],
+  "author": "lastuniverse\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[DRoman Surmanidze aka lastuniverse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lastuniverse/explosion/issues"
+  },
+  "homepage": "https://github.com/lastuniverse/explosion#readme"
 }
