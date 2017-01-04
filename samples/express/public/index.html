@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>map eginere</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale = 1.0" />
+  <link rel="stylesheet" href="codebase/webix.css" type="text/css" media="screen" charset="utf-8">
+  <script src="codebase/webix.js" type="text/javascript" charset="utf-8"></script>
+  <!--link href="codebase/skins/webix.css" rel="stylesheet" type="text/css"-->
+
+  <script src="js/rerandom.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/world.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body class="my_body">
+<script type="text/javascript" charset="utf-8">
+
+
+
+var map = {
+  seed: 65430,
+  size: 21
+};
+// 24497, 12046, 62361, 63938, 4781, 6952, 44037
+// круто 65031, 52146, 58823, 36075, 48973, 33677, 49172, 13796, 5181, 65430, 30865
+
+var game = new world(map);
+
+var general_form = {
+  view:"form",
+  id:"general_form",
+  margin: 2,
+  padding: 2,
+  elements: [
+      {view:"slider", labelWidth:160, label:"размер карты", value:map.size, min:8, max:21, name:"size", id:"map_size", title: (2<<map.size)+"x"+(1<<map.size) },
+      {
+        margin: 5,
+        cols: [
+          {view:"text", labelWidth:165, label:"seed", value: map.seed, name:"seed", id:"map_seed" },
+          {view:"button", value: "сгенерировать новый", align:"left", width: 160,
+            click:function(){
+              map.seed = Math.floor(Math.random() * 65535)+1;
+              $$("map_seed").setValue(map.seed);
+              drawMap();
+            }
+          }
+        ]
+      }
+  ]
+};
+
+var map_view = {
+  view:"layout",
+  fillspace:true,
+  rows:[
+    {
+      template:"<canvas style='width:100%; height:100%' id='map'>Обновите браузер</canvas>",
+      id: "map_view",
+      type: "line",
+      margin: 0,
+      padding: 0,
+      width: 522,
+      height: 266
+    }
+  ]
+};
+
+var map_keys = {
+  view: "form",
+  //width: 512,
+  margin: 2,
+  padding: 2,
+  cols: [
+    {view:"button", value: "перерисовать карту", align:"left",  click:drawMap},
+    {view:"button", value: "в большом окне", align:"left",  click:drawGame},
+    {view:"button", value: "равномерность шума", align:"left",  click:showRand}
+  ]
+};
+
+
+
+var tools_view = {
+  //view: "accordion",
+  //width: 512,
+  id: "tools_view",
+  align: 'center',
+  multi: false,
+  height: "100%",
+  cols:[
+    {
+      header: "параметры генераторов",
+      body: general_form,
+      collapsed: false
+    },
+    {
+      header: "параметры карты высот",
+      body: {},
+      collapsed: true
+    },
+    {
+      header: "отображаемые слои",
+      body: {},
+      collapsed: true
+    }
+  ]
+};
+
+
+webix.ui({
+  rows:[
+    {
+      template:"header",
+      height: 64
+    },
+    { // row 3
+      type: "space",
+      cols:[
+        {
+          template:"<canvas style='width:100%; height:100%' id='game'>Обновите браузер</canvas>",
+          adjust:true,
+          id: "game_view",
+          type: "line"
+        },
+        {
+          rows:[
+            map_view,
+            tools_view,
+            map_keys
+          ]
+        }
+      ]
+    },
+    {
+      template:"footer",
+      height: 64
+    }
+  ]
+});
+
+
+//---------------------------------------------------------------
+$$("map_size").attachEvent("onChange", function(newv, oldv){
+    map.size = newv;
+    map.height = Math.pow(2,newv);
+    map.width = map.height<<1;
+    $$('map_size').define("title", map.width+"x"+map.height);
+    $$('map_size').refresh();
+    game.Init(map);
+});
+$$("map_seed").attachEvent("onChange", function(newv, oldv){
+    if( typeof newv === "string" )
+      map.seed = parseInt(newv);
+    game.Init(map);
+});
+
+//---------------------------------------------------------------
+function drawMap(){
+  const name = "map";
+  var width = $$(name+"_view").$width-10;
+  var height = $$(name+"_view").$height-10;
+  var canvas = document.getElementById(name);
+  let cw = canvas.width = width;// = 428;
+  let ch = canvas.height = height;// = 214;
+  var ctx = canvas.getContext('2d');
+  var img = ctx.createImageData(cw, ch);
+  game.DrawPerlin(img);
+
+  ctx.putImageData(img, 0, 0);
+}
+function drawGame(){
+  const name = "game";
+  var width = 1024; // $$(name+"_view").$width-10;
+  var height = 512; // $$(name+"_view").$height-10;
+  console.log("size:",width,height);
+
+  var canvas = document.getElementById(name);
+  let cw = canvas.width = width;// = 428;
+  let ch = canvas.height = height;// = 214;
+  var ctx = canvas.getContext('2d');
+  var img = ctx.createImageData(cw, ch);
+  game.DrawPerlin(img);
+
+  ctx.putImageData(img, 0, 0);
+}
+
+
+//---------------------------------------------------------------
+function drawPixel(img,x,y,r,g,b,a){
+  var o = (y*img.width+x)*4;
+    img.data[o+0]=r; // красный
+    img.data[o+1]=g; // зеленый
+    img.data[o+2]=b; // синий
+    img.data[o+3]=a; // прозрачность
+}
+
+function addPixel(img,x,y){
+  var o = (y*img.width+x)*4;
+    if(img.data[o+0]+1<255) img.data[o+0]=img.data[o+0]+1; // красный
+    if(img.data[o+1]+1<255) img.data[o+1]=img.data[o+1]+1; // зеленый
+    if(img.data[o+2]+1<255) img.data[o+2]=img.data[o+2]+1; // синий
+    img.data[o+3]=255; // прозрачность
+    //img.data[o+1]=(g*a + img.data[o+1]*(255-a))>>8; // зеленый
+    //img.data[o+2]=(b*a + img.data[o+2]*(255-a))>>8; // синий
+    //img.data[o+3]=a; // прозрачность
+}
+
+function showTest(name){
+  var canvas = document.getElementById(name);
+  w = canvas.width = 512;// $$(name).$width;
+  h = canvas.height = 256;//$$(name).$height;
+  var ctx = canvas.getContext('2d');
+  var img = ctx.createImageData(w, h);
+  for(var y=0; y<h; y++){
+  for(var x=0; x<w; x++){
+      let c1 = (x^y)&127;
+      let c2 = (x*y)&127;
+      drawPixel(img, x, y, c1, c2, 0, 255);
+  }}
+  ctx.putImageData(img, 0, 0);
+}
+
+function showRand(){
+  var name = "map";
+  var canvas = document.getElementById(name);
+  w = canvas.width = 512;//$$(name).$width;
+  h = canvas.height = 256;//$$(name).$height;
+  var ctx = canvas.getContext('2d');
+  var img = ctx.createImageData(w, h);
+  console.log("seed", map);
+  var random = new rerandom(map.seed);
+
+
+  for(var y=0; y<h; y++){
+  for(var x=0; x<(w>>1); x++){
+      var r1 = random.GetxxHash(x,y)&255;
+      drawPixel(img, x, y, r1, r1, r1, 255);
+  }}
+
+  for(var i=0; i<(65536<<7); i++){
+      var r1 = random.GetxxHash(i)&255;
+      var r2 = random.GetxxHash(i+1)&255;
+      addPixel(img, (r1&255)+(w>>1), r2&255);
+  }
+
+  ctx.putImageData(img, 0, 0);
+}
+
+
+
+
+
+
+// function getMousePos(canvas, evt) {
+//   var rect = canvas.getBoundingClientRect();
+//   return {
+//     x: evt.clientX - rect.left,
+//     y: evt.clientY - rect.top
+//   };
+// }
+
+var game_canvas = document.getElementById('game');
+game_canvas.addEventListener('click', function(evt) {
+  // var mousePos = getMousePos(canvas, evt);
+  // var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+  // writeMessage(canvas, message);
+  showTest("game");
+}, false);
+
+var map_canvas = document.getElementById('map');
+map_canvas.addEventListener('click', function(evt) {
+  // var mousePos = getMousePos(canvas, evt);
+  // var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+  // writeMessage(canvas, message);
+  showTest("map");
+}, false);
+
+drawMap();
+</script>
+</body>
+</html>
