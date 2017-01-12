@@ -35,11 +35,10 @@ npm install https://github.com/lastuniverse/explosion/tarball/master
 
 ## Usage
 
-on server side
+### on server side
 
+index.js
 ```
-// in index.js
-
 let explosion = require( 'explosion' );
 let app = explosion( server );
 
@@ -77,8 +76,8 @@ let yourouter = require('./yourouter');
 app.use('/yourouter', yourouter);
 ```
 
+yourouter.js
 ```
-// in yourouter.js
 var explosion = require('explosion');
 var router = explosion.Router();
 
@@ -105,7 +104,8 @@ module.exports = router;
 
 ```
 
-on client side
+### on client side
+index.html
 ```
 <!DOCTYPE html>
 <html>
