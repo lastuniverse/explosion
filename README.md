@@ -119,7 +119,7 @@ index.html
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  cript src="js/explosion/explosion.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/explosion/explosion.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body class="my_body">
 </body>

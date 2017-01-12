@@ -1,6 +1,6 @@
 {
   "name": "explosion",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "WebSocket server for processing service messages mailings",
   "main": "index.js",
   "directories": {
@@ -19,6 +19,7 @@
     "url": "git+https://github.com/lastuniverse/explosion.git"
   },
   "keywords": [
+    "server",
     "websocket",
     "message",
     "server"
