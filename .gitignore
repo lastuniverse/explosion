@@ -50,9 +50,12 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
+for_me
+
 
 # Optional npm cache directory
 .npm
+.npmignore
 
 # Optional REPL history
 .node_repl_history

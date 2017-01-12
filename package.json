@@ -1,11 +1,11 @@
 {
   "name": "explosion",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "WebSocket server for processing service messages mailings",
   "main": "index.js",
   "directories": {
     "doc": "docs",
-    "example": "examples"
+    "example": "samples"
   },
   "dependencies": {
     "ws": "^1.1.1"
