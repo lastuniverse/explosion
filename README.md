@@ -41,6 +41,7 @@ index.js
 ```
 let explosion = require( 'explosion' );
 let app = explosion( server );
+let path = require('path');
 
 // Get all messages send from all clients to "/system/..." distributions
 wsapp.use( "/system", function( req, res, next ) {
@@ -74,6 +75,13 @@ wsapp.use( "/system", function( req, res, next ) {
 
 let yourouter = require('./yourouter');
 app.use('/yourouter', yourouter);
+
+// start explosion server
+var port = 3000;
+server.on( 'request', app );
+server.listen( port, function() {
+  console.log( 'Listening on ' + server.address().port )
+} );
 ```
 
 yourouter.js
